@@ -14,13 +14,18 @@ const FormComponent = () => {
     setState({...state, [name]:event.target.value});
 	};
 
+  const submitForm = event => {
+    event.preventDefault();
+    // console.table(state);
+    console.log(`API URL: ${process.env.REACT_APP_API}`);
+  };
+  
 	return (
 		<div className='container p-5'>
       <NavbarComponent/>
-
 			<pre>{JSON.stringify(state)}</pre>
 			<h1>เขียนบทความ</h1>
-			<form action=''>
+			<form action='' onSubmit={submitForm}>
 				<div className='form-group'>
 					<label htmlFor=''>ชื่อบทความ</label>
 					<input
