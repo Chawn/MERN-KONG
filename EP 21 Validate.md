@@ -1,3 +1,7 @@
+# Validate
+
+## controller/blogController.js
+```
 // เชื่อมต่อฐานข้อมูล
 
 const slugify = require('slugify');
@@ -28,3 +32,4 @@ exports.create = (req, res) => {
 		});
 };
 
+```
