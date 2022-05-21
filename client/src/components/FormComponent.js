@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import NavbarComponent from './NavbarComponent';
 const FormComponent = () => {
 	const [state, setState] = useState({
 		title: '',
@@ -16,6 +16,8 @@ const FormComponent = () => {
 
 	return (
 		<div className='container p-5'>
+      <NavbarComponent/>
+
 			<pre>{JSON.stringify(state)}</pre>
 			<h1>เขียนบทความ</h1>
 			<form action=''>
