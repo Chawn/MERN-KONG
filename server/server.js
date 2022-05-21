@@ -4,6 +4,9 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+// import routes
+const blogRoute = require('./route/blog')
+
 const app = express();
 
 // Connect to MongoDB
@@ -20,7 +23,7 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
 
-
+app.use('/api', blogRoute)
 
 const PORT = process.env.PORT || 5500;
 
