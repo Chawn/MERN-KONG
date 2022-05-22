@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { authenticate, getUsername } from '../services/authorize';
 import NavbarComponent from './NavbarComponent';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
-import { authenticate } from '../services/authorize';
 import { withRouter } from 'react-router-dom';
 
 const LoginComponent = props => {
@@ -41,6 +39,11 @@ const LoginComponent = props => {
 			});
 		// console.table({username, password})
 	};
+
+	useEffect(() => {
+		getUsername() && props.history.push('/');
+	}, []);
+
 
 	return (
 		<div className='container p-5'>

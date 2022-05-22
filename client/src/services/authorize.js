@@ -26,9 +26,18 @@ export const getToken = () => {
 export const getUsername = () => {
   if(window !== 'undefined'){
     if(sessionStorage.getItem('username')){
-      return JSON.parse(sessionStorage.getItem('username'));
+      return sessionStorage.getItem('username');
     }else{
       return false;
     }
   }
+}
+
+// Logout
+export const logout = (next) => {
+  if(window !== 'undefined'){
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('token')
+  }
+  next();
 }
