@@ -19,7 +19,24 @@ const LoginComponent = () => {
 
   const submitForm = event => {
     event.preventDefault();
-    console.table({username, password})
+		axios.post(`${process.env.REACT_APP_API}/login`, {
+			username,
+			password,
+		})
+			.then(res => {
+				localStorage.setItem('token', res.data.token);
+				setTimeout(() => {
+					window.location.href = '/';
+				}, 1000);
+			})
+			.catch(err => {
+				console.log(err)
+				Swal.fire({
+					icon: 'error',
+					title: err.response.data.message,
+				});
+			});
+    // console.table({username, password})
   }
   
   return (
