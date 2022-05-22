@@ -7,7 +7,8 @@ exports.login = (req, res) => {
     return res.status(200).json({
       status: true,
       message: 'เข้าสู่ระบบสำเร็จ',
-      token
+      token,
+      username
     });
   }else{
     return res.status(400).json({

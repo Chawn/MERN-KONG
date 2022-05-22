@@ -1,45 +1,48 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
 import NavbarComponent from './NavbarComponent';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { authenticate } from '../services/authorize';
+import { withRouter } from 'react-router-dom';
 
-const LoginComponent = () => {
-  const [state, setState] = useState({
+const LoginComponent = props => {
+	const [state, setState] = useState({
 		username: '',
 		password: '',
 	});
 	const { username, password } = state;
 
-  	// กำหนดค่าให้ State
+	// กำหนดค่าให้ State
 	const inputValue = name => event => {
 		setState({ ...state, [name]: event.target.value });
 	};
 
-  const submitForm = event => {
-    event.preventDefault();
-		axios.post(`${process.env.REACT_APP_API}/login`, {
-			username,
-			password,
-		})
+	const submitForm = event => {
+		event.preventDefault();
+		axios
+			.post(`${process.env.REACT_APP_API}/login`, {
+				username,
+				password,
+			})
 			.then(res => {
-				localStorage.setItem('token', res.data.token);
-				setTimeout(() => {
-					window.location.href = '/';
-				}, 1000);
+				authenticate(res, ()=>props.history.push('/create'));
+				// setTimeout(() => {
+				// 	window.location.href = '/create';
+				// }, 1000);
 			})
 			.catch(err => {
-				console.log(err)
+				console.log(err);
 				Swal.fire({
 					icon: 'error',
 					title: err.response.data.message,
 				});
 			});
-    // console.table({username, password})
-  }
-  
-  return (
+		// console.table({username, password})
+	};
+
+	return (
 		<div className='container p-5'>
 			<NavbarComponent />
 			<h1>เข้าสู่ระบบ</h1>
@@ -65,12 +68,12 @@ const LoginComponent = () => {
 				<br />
 				<input type='submit' value='บันทึก' className='btn btn-primary' />
 			</form>
-      <br />
-      <code>
-        <pre>{JSON.stringify(state, null, 1)}</pre>
-      </code>
+			<br />
+			<code>
+				<pre>{JSON.stringify(state, null, 1)}</pre>
+			</code>
 		</div>
-  )
-}
+	);
+};
 
-export default LoginComponent
+export default withRouter(LoginComponent);
