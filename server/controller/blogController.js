@@ -2,12 +2,16 @@
 
 const slugify = require('slugify');
 const Blogs = require('../models/blogs');
+const { v4: uuidv4 } = require('uuid');
 
 // บันทึกข้อมูล
 exports.create = (req, res) => {
 	const { title, content, author } = req.body;
-	const slug = slugify(title);
+	let slug = slugify(title);
 
+	if(!slug){
+		slug = uuidv4();
+	}
 	// Validate
 	switch (true) {
 		case !title:
@@ -46,7 +50,7 @@ exports.create = (req, res) => {
 
 // ดึงข้อมูลบทความทั้งหมด
 exports.getAllBlogs = (req, res) => {
-	Blogs.find({}).exec((err, blogs) => {
+	Blogs.find({}).sort({createdAt: 'desc'}).exec((err, blogs) => {
 		if (err) {
 			return res.status(400).json({
 				status: false,
