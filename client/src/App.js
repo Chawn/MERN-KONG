@@ -73,7 +73,7 @@ function App() {
               <a href={`/blog/${blog.slug}`}>
                 <h2>{blog.title}</h2>
               </a>
-              <p>{blog.content.substring(0, 250)}</p>
+              <div class="pt-3" dangerouslySetInnerHTML={{ __html: blog.content.substring(0, 250) }} /> {/* render html */}
               <p>ผู้เขียน: {blog.author}, เผยแพร่ {new Date(blog.createdAt).toLocaleString()}</p>
               <a href={`/blog/edit/${blog.slug}`} className='btn btn-outline-secondary me-2'>
                 แก้ไข
