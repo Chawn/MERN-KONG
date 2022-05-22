@@ -65,7 +65,6 @@ function App() {
 			<NavbarComponent />
 
 			<h1>Home</h1>
-			<pre>{JSON.stringify(blogs)}</pre>
       {
         blogs.data ? blogs.data.map(blog => (
           <div className='row' key={blog._id}>
@@ -87,6 +86,9 @@ function App() {
         ))
         : <p>ไม่พบบทความ</p>
       }
+      <code>
+			  <pre>{JSON.stringify(blogs, null, 2)}</pre>
+      </code>
 		</div>
 	);
 }

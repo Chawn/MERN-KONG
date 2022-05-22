@@ -10,6 +10,9 @@ const NavbarComponent = () => {
         <li className='nav-item pe-3 pt-2 pb-3'>
           <a href="/create" className='nav-link'>เขียนบทความ</a>
         </li>
+        <li className='nav-item pe-3 pt-2 pb-3'>
+          <a href="/login" className='nav-link'>เข้าสู่ระบบ</a>
+        </li>
       </ul>
     </nav>
   )
