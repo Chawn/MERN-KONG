@@ -75,9 +75,9 @@ function App() {
               </a>
               <p>{blog.content.substring(0, 250)}</p>
               <p>ผู้เขียน: {blog.author}, เผยแพร่ {new Date(blog.createdAt).toLocaleString()}</p>
-              <button className='btn btn-outline-secondary me-2'>
+              <a href={`/blog/edit/${blog.slug}`} className='btn btn-outline-secondary me-2'>
                 แก้ไข
-              </button>
+              </a>
               <button className='btn btn-outline-danger' onClick={ () => confirmDelete(blog.slug) }>
                 ลบ
               </button>

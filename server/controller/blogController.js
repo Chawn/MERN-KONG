@@ -112,6 +112,22 @@ exports.remove = (req, res) => {
 exports.update = (req, res) => {
 	const { slug } = req.params;
 	const { title, content, author } = req.body;
+
+	// Validate
+	switch (true) {
+		case !title:
+			return res.status(400).json({
+				status: false,
+				message: 'กรุณากรอกชื่อบทความ',
+			});
+		case !content:
+			return res.status(400).json({
+				status: false,
+				message: 'กรุณากรอกรายละเอียดบทความ',
+			});
+	}
+
+	
 	Blogs.findOneAndUpdate({ slug }, { title, content, author }, {new:true}).exec((err, blog)=>{
 		if(err){
 			return res.status(400).json({

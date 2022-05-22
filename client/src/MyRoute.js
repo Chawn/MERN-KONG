@@ -2,6 +2,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import App from "./App"
 import FormComponent from "./components/FormComponent"
 import SingleComponent from "./components/SingleComponent"
+import EditComponent from "./components/EditComponent"
 
 const MyRoute = () => {
   return (
@@ -10,6 +11,8 @@ const MyRoute = () => {
         <Route path="/" exact component={App} />
         <Route path="/create" exact component={FormComponent} />
         <Route path="/blog/:slug" exact component={SingleComponent} />
+        <Route path="/blog/edit/:slug" exact component={EditComponent} />
+
       </Switch>
     </BrowserRouter>
   );
