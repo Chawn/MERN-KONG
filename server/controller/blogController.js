@@ -106,3 +106,24 @@ exports.remove = (req, res) => {
 	});
 
 };
+
+
+//แก้ไขข้อมูล โดย slug
+exports.update = (req, res) => {
+	const { slug } = req.params;
+	const { title, content, author } = req.body;
+	Blogs.findOneAndUpdate({ slug }, { title, content, author }, {new:true}).exec((err, blog)=>{
+		if(err){
+			return res.status(400).json({
+				status: false,
+				message: 'แก้ไขไม่สำเร็จ',
+				error: err,
+			});
+		}
+		return res.status(200).json({
+			status: true,	
+			message: 'แก้ไขบทความเรียบร้อย',
+			data: blog,
+		});
+	});
+};
