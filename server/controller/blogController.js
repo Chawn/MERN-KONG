@@ -61,3 +61,24 @@ exports.getAllBlogs = (req, res) => {
 		});
 	});
 }
+
+
+
+// ดึงข้อมูลบทความเดียว โดย slug
+exports.singleBlog = (req, res) => {
+	const { slug } = req.params;
+	Blogs.findOne({ slug }).exec((err, blog) => {
+		if (err) {
+			return res.status(400).json({
+				status: false,
+				message: 'ขออภัย..ไม่พบบทความ',
+				error: err,
+			});
+		}
+		return res.status(200).json({
+			status: true,
+			message: 'ดึงข้อมูลบทความเรียบร้อย',
+			data: blog,
+		});
+	})
+}
