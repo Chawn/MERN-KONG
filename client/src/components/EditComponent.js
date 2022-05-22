@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 import NavbarComponent from './NavbarComponent';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const EditComponent = props => {
 	const [state, setState] = useState({
 		title: '',
-		content: '',
 		author: '',
 		slug: '',
 	});
-
-	const { title, content, author, slug  } = state;
+	
+	const { title, author, slug  } = state;
+	
+	const [content, setContent] = useState('');
 
 	useEffect(() => {
 		axios
@@ -19,7 +22,8 @@ const EditComponent = props => {
 			.then(res => {
 				// setBlog(res.data.data);
 				const { title, content, author, slug } = res.data.data;
-				setState({ ...state, title, content, author, slug });
+				setState({ ...state, title, author, slug });
+				setContent(content);
 			})
 			.catch(err => {
 				console.log(err);
@@ -39,11 +43,13 @@ const EditComponent = props => {
 			</div>
 			<div className='form-group'>
 				<label htmlFor=''>บทความ</label>
-				<textarea
-					className='form-control'
-					value={content}
-					onChange={inputValue('content')}
-				></textarea>
+				<ReactQuill
+						value={content}
+						onChange={setContent}
+						theme='snow'
+						className='pb-5 mb-3'
+						placeholder='เขียนบทความ'
+					/>
 			</div>
 			<div className='form-group'>
 				<label htmlFor=''>ผู้เขียน</label>

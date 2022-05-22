@@ -20,7 +20,7 @@ const SingleComponent = (props) => {
     <div className='container p-5'>
       <NavbarComponent />
       <h2>{blog.title}</h2>
-      <div class="py-4">{ blog.content }</div>
+      <div className="py-4">{ blog.content }</div>
       <p>ผู้เขียน: {blog.author}, เผยแพร่ {new Date(blog.createdAt).toLocaleString()}</p>
       <code>
         <pre>{ JSON.stringify(blog, null, 2)}</pre>
