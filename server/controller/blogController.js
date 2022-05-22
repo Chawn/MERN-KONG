@@ -43,3 +43,21 @@ exports.create = (req, res) => {
 	// 	data: { title, content, author, slug }
 	// });
 };
+
+// ดึงข้อมูลบทความทั้งหมด
+exports.getAllBlogs = (req, res) => {
+	Blogs.find({}).exec((err, blogs) => {
+		if (err) {
+			return res.status(400).json({
+				status: false,
+				message: 'ขออภัย..ไม่พบบทความ',
+				error: err,
+			});
+		}
+		return res.status(200).json({
+			status: true,
+			message: 'ดึงข้อมูลบทความเรียบร้อย',
+			data: blogs,
+		});
+	});
+}
