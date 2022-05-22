@@ -24,9 +24,9 @@ function App() {
         blogs.data ? blogs.data.map(blog => (
           <div className='row' key={blog._id}>
             <div className="col pt-3 pb-2 shadow-s">
-              <Link to={`/blog/${blog.slug}`}>
+              <a href={`/blog/${blog.slug}`}>
                 <h2>{blog.title}</h2>
-              </Link>
+              </a>
               <p>{blog.content.substring(0, 250)}</p>
               <p>ผู้เขียน: {blog.author}, เผยแพร่ {new Date(blog.createdAt).toLocaleString()}</p>
               <hr />
