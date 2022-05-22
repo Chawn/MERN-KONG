@@ -16,7 +16,6 @@ const SingleComponent = (props) => {
     })
   }, []);
 
-
   return (
     <div className='container p-5'>
       <NavbarComponent />

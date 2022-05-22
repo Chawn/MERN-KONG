@@ -9,7 +9,7 @@ exports.create = (req, res) => {
 	const { title, content, author } = req.body;
 	let slug = slugify(title);
 
-	if(!slug){
+	if (!slug) {
 		slug = uuidv4();
 	}
 	// Validate
@@ -25,7 +25,7 @@ exports.create = (req, res) => {
 				message: 'กรุณากรอกรายละเอียดบทความ',
 			});
 	}
-	
+
 	Blogs.create({ title, content, author, slug }, (err, blog) => {
 		if (err) {
 			return res.status(400).json({
@@ -50,23 +50,23 @@ exports.create = (req, res) => {
 
 // ดึงข้อมูลบทความทั้งหมด
 exports.getAllBlogs = (req, res) => {
-	Blogs.find({}).sort({createdAt: 'desc'}).exec((err, blogs) => {
-		if (err) {
-			return res.status(400).json({
-				status: false,
-				message: 'ขออภัย..ไม่พบบทความ',
-				error: err,
-			});
-		}
-		return res.status(200).json({
+	Blogs.find({})
+		.sort({ createdAt: 'desc' })
+		.exec((err, blogs) => {
+			if (err) {
+				return res.status(400).json({
+					status: false,
+					message: 'ขออภัย..ไม่พบบทความ',
+					error: err,
+				});
+			}
+			return res.status(200).json({
 				status: true,
 				message: 'ดึงข้อมูลบทความเรียบร้อย',
 				data: blogs,
+			});
 		});
-	});
-}
-
-
+};
 
 // ดึงข้อมูลบทความเดียว โดย slug
 exports.singleBlog = (req, res) => {
@@ -84,5 +84,25 @@ exports.singleBlog = (req, res) => {
 			message: 'ดึงข้อมูลบทความเรียบร้อย',
 			data: blog,
 		});
-	})
-}
+	});
+};
+
+// ลบข้อมูล โดย slug
+exports.remove = (req, res) => {
+	const { slug } = req.params;
+	Blogs.findOneAndDelete({ slug }, function (err, blog) {
+		if (err) {
+			return res.status(400).json({
+				status: false,
+				message: 'ลบไม่สำเร็จ',
+				error: err,
+			});
+		} else {
+			return res.status(200).json({
+				status: true,
+				message: 'ลบบทความเรียบร้อย',
+			});
+		}
+	});
+
+};
