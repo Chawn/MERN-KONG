@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import NavbarComponent from './NavbarComponent';
+import axios from 'axios';
+
 const FormComponent = () => {
 	const [state, setState] = useState({
 		title: '',
@@ -17,7 +19,17 @@ const FormComponent = () => {
   const submitForm = event => {
     event.preventDefault();
     // console.table(state);
-    console.log(`API URL: ${process.env.REACT_APP_API}`);
+    const api_url  = `${process.env.REACT_APP_API}/create`;
+    axios
+    .post(api_url, {title, content, author})
+    .then(res => {
+      alert(res.data.message);
+    })
+    .catch(err => {
+      alert(err.response.data.message);
+    });
+    
+    // console.log(`API URL: ${process.env.REACT_APP_API}`);
   };
   
 	return (
