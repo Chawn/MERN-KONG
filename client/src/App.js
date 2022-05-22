@@ -24,8 +24,8 @@ function App() {
           <div className='row' key={blog._id}>
             <div className="col pt-3 pb-2 shadow-s">
               <h3>{blog.title}</h3>
-              <p>{blog.content}</p>
-              <p>ผู้เขียน: {blog.author}, เผยแพร่ {blog.updatedAt}</p>
+              <p>{blog.content.substring(0, 250)}</p>
+              <p>ผู้เขียน: {blog.author}, เผยแพร่ {new Date(blog.createdAt).toLocaleString()}</p>
               <hr />
             </div>
           </div>
