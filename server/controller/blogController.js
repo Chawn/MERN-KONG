@@ -55,9 +55,9 @@ exports.getAllBlogs = (req, res) => {
 			});
 		}
 		return res.status(200).json({
-			status: true,
-			message: 'ดึงข้อมูลบทความเรียบร้อย',
-			data: blogs,
+				status: true,
+				message: 'ดึงข้อมูลบทความเรียบร้อย',
+				data: blogs,
 		});
 	});
 }
