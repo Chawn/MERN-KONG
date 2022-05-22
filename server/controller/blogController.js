@@ -26,7 +26,7 @@ exports.create = (req, res) => {
 		if (err) {
 			return res.status(400).json({
 				status: false,
-				message: 'มีบทความชื่อซ้ำกัน',
+				message: 'ขออภัย..มีบทความชื่อซ้ำกัน',
 				error: err,
 			});
 		}
