@@ -4,23 +4,34 @@ import NavbarComponent from './components/NavbarComponent';
 
 function App() {
 	const [blogs, setBlogs] = useState({});
-	const [notfound, setNotfound] = useState('');
+
+  const fetchData = async () => {
+    const result = await axios(`${process.env.REACT_APP_API}/blogs`);
+    setBlogs(result.data);
+  };
 
 	useEffect(() => {
-		axios.get(`${process.env.REACT_APP_API}/blogs`).then(res => {
-			setBlogs(res);
-		}).catch(err => {
-      setNotfound(err.response.data.message);
-    });
+    fetchData();
 	}, []);
-
 	return (
 		<div className='container p-5'>
 			<NavbarComponent />
 
 			<h1>Home</h1>
-      {notfound !='' && <p>{notfound}</p>}
 			<pre>{JSON.stringify(blogs)}</pre>
+      {
+        blogs.data ? blogs.data.map(blog => (
+          <div className='row' key={blog._id}>
+            <div className="col pt-3 pb-2 shadow-s">
+              <h3>{blog.title}</h3>
+              <p>{blog.content}</p>
+              <p>ผู้เขียน: {blog.author}, เผยแพร่ {blog.updatedAt}</p>
+              <hr />
+            </div>
+          </div>
+        ))
+        : <p>ไม่พบบทความ</p>
+      }
 		</div>
 	);
 }
