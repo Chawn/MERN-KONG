@@ -63,8 +63,6 @@ function App() {
 	return (
 		<div className='container p-5'>
 			<NavbarComponent />
-
-			<h1>Home</h1>
       {
         blogs.data ? blogs.data.map(blog => (
           <div className='row' key={blog._id}>

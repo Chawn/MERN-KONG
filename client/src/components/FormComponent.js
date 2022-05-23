@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { authenticate, getUsername } from '../services/authorize';
+import React, { useState } from 'react';
+import { getUsername } from '../services/authorize';
 import NavbarComponent from './NavbarComponent';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const FormComponent = (props) => {
+const FormComponent = () => {
 	const [state, setState] = useState({
 		title: '',
 		author: getUsername(),
@@ -41,10 +41,6 @@ const FormComponent = (props) => {
 
 		// console.log(`API URL: ${process.env.REACT_APP_API}`);
 	};
-
-	useEffect(() => {
-		!getUsername() && props.history.push('/');
-	}, []);
 
 	return (
 		<div className='container p-5'>
