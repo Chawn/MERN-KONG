@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import NavbarComponent from './components/NavbarComponent';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { getToken } from './services/authorize'
 
 function App() {
 	const [blogs, setBlogs] = useState({});
@@ -17,7 +18,13 @@ function App() {
 	}, []);
   
   const deleteBlog = (slug) => {
-    axios.delete(`${process.env.REACT_APP_API}/blog/${slug}`)
+    axios.delete(`${process.env.REACT_APP_API}/blog/${slug}`,
+      {
+        headers: {
+          authorization : `Bearer ${getToken()}`,
+        },
+      }
+    )
     .then(res => {
       Swal.fire(
         'ลบบทความสำเร็จ!',
@@ -72,12 +79,17 @@ function App() {
               </a>
               <div className="pt-3" dangerouslySetInnerHTML={{ __html: blog.content.substring(0, 250) }} /> {/* render html */}
               <p>ผู้เขียน: {blog.author}, เผยแพร่ {new Date(blog.createdAt).toLocaleString()}</p>
-              <a href={`/blog/edit/${blog.slug}`} className='btn btn-outline-secondary me-2'>
-                แก้ไข
-              </a>
-              <button className='btn btn-outline-danger' onClick={ () => confirmDelete(blog.slug) }>
-                ลบ
-              </button>
+              {
+                getToken() &&
+                  <div>
+                    <a href={`/blog/edit/${blog.slug}`} className='btn btn-outline-secondary me-2'>
+                      แก้ไข
+                    </a>
+                    <button className='btn btn-outline-danger' onClick={ () => confirmDelete(blog.slug) }>
+                      ลบ
+                    </button>
+                  </div>
+               }
               <hr />
             </div>
           </div>

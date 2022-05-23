@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getUsername } from '../services/authorize';
+import { getToken, getUsername } from '../services/authorize';
 import NavbarComponent from './NavbarComponent';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -24,9 +24,15 @@ const FormComponent = () => {
 	const submitForm = event => {
 		event.preventDefault();
 		// console.table(state);
-		const api_url = `${process.env.REACT_APP_API}/create`;
 		axios
-			.post(api_url, { title, content, author })
+			.post(`${process.env.REACT_APP_API}/create`, 
+				{ title, content, author },
+				{
+					headers: {
+						authorization : `Bearer ${getToken()}`,
+					},
+				}
+			)
 			.then(res => {
 				Swal.fire('สำเร็จ!', res.data.message, 'success');
 				setState({ ...state, title: '', author: '' });

@@ -15,7 +15,7 @@ export const authenticate = (response, next) => {
 export const getToken = () => {
   if(window !== 'undefined'){
     if(sessionStorage.getItem('token')){
-      return JSON.parse(sessionStorage.getItem('token'));
+      return sessionStorage.getItem('token');
     }else{
       return false;
     }
